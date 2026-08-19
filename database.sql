@@ -27,18 +27,13 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `universitas` varchar(255) NOT NULL,
-  `prodi` varchar(255) NOT NULL,
-  `divisi` varchar(255) NOT NULL
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `universitas` varchar(255) DEFAULT NULL,
+  `prodi` varchar(255) DEFAULT NULL,
+  `divisi` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `nama`, `universitas`, `prodi`, `divisi`) VALUES
-(1, 'Egie Irawan', 'Universitas Duta Bangsa', 'Teknik Informatika', 'UI & UX Web Development');
 
 -- --------------------------------------------------------
 

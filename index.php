@@ -1,5 +1,11 @@
 <?php
 require_once 'functions.php';
+
+// Cek apakah user sudah login
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -20,7 +26,12 @@ require_once 'functions.php';
 <header class="app-header mb-5 no-print">
     <div class="container d-flex justify-content-between align-items-center">
         <h1 class="app-title"><i class="ph-fill ph-notebook"></i> Logbook Pro</h1>
-        <div class="text-muted fw-medium">MSIB Batch 5</div>
+        <div class="d-flex align-items-center gap-4">
+            <div class="text-muted fw-medium d-none d-md-block">MSIB Batch 5</div>
+            <a href="logout.php" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1" style="border-radius: 8px;">
+                <i class="ph ph-sign-out"></i> Logout
+            </a>
+        </div>
     </div>
 </header>
 
