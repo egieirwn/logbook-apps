@@ -7,6 +7,7 @@ function Dashboard({ user }) {
   const [profil, setProfil] = useState({ nama: '', universitas: '', prodi: '', divisi: '', minggu_cetak: 1 });
   const [logbooks, setLogbooks] = useState([]);
   const [formLogbook, setFormLogbook] = useState({ minggu_ke: 1, tanggal: '', deskripsi: '' });
+  const [editLogbook, setEditLogbook] = useState({ id: null, tanggal: '', deskripsi: '' });
 
   // Fetch Profile & Logbooks
   const fetchData = async () => {
@@ -75,6 +76,25 @@ function Dashboard({ user }) {
       fetchData();
     } catch (error) {
       alert('Gagal menyimpan kegiatan: ' + error.message);
+    }
+  };
+
+  const handleUpdateKegiatan = async (e) => {
+    e.preventDefault();
+    try {
+      const logbookRef = doc(db, 'logbooks', editLogbook.id);
+      await updateDoc(logbookRef, {
+        tanggal: editLogbook.tanggal,
+        deskripsi_kegiatan: editLogbook.deskripsi
+      });
+      fetchData();
+      
+      // Close modal by triggering the close button (Bootstrap way in React without refs)
+      const closeBtn = document.getElementById('closeModalBtn');
+      if(closeBtn) closeBtn.click();
+      
+    } catch (error) {
+      alert('Gagal mengupdate kegiatan: ' + error.message);
     }
   };
 
@@ -236,7 +256,10 @@ function Dashboard({ user }) {
                       <td style={{ whiteSpace: 'pre-wrap' }}>{row.deskripsi_kegiatan}</td>
                       <td className="aksi-kolom no-print">
                         <div className="action-buttons">
-                          <button onClick={() => hapusKegiatan(row.id)} className="btn-icon danger" title="Hapus Data" style={{ border: 'none', background: 'transparent' }}>
+                          <button onClick={() => setEditLogbook({ id: row.id, tanggal: row.tanggal, deskripsi: row.deskripsi_kegiatan })} className="btn-icon" title="Edit Data" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                            <i className="ph ph-pencil-simple"></i>
+                          </button>
+                          <button onClick={() => hapusKegiatan(row.id)} className="btn-icon danger" title="Hapus Data">
                             <i className="ph ph-trash"></i>
                           </button>
                         </div>
@@ -263,6 +286,39 @@ function Dashboard({ user }) {
                 <i className="ph ph-printer fs-5"></i> Simpan PDF
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Modal Edit Kegiatan */}
+      <div className="modal fade" id="modalEdit" tabIndex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content" style={{ border: 'none', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
+            <form onSubmit={handleUpdateKegiatan}>
+              <div className="modal-header bg-light border-0 px-4 py-3">
+                <h5 className="modal-title fw-bold d-flex align-items-center gap-2" id="modalEditLabel">
+                  <i className="ph-fill ph-pencil-simple-line text-primary"></i> Edit Kegiatan
+                </h5>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" id="closeModalBtn" aria-label="Close"></button>
+              </div>
+              <div className="modal-body px-4 py-4">
+                <div className="mb-4">
+                  <label className="form-label">Hari/Tanggal</label>
+                  <div className="input-group-custom">
+                    <input type="date" className="form-control" value={editLogbook.tanggal} onChange={(e) => setEditLogbook({...editLogbook, tanggal: e.target.value})} required />
+                    <i className="ph ph-calendar-blank"></i>
+                  </div>
+                </div>
+                <div className="mb-2">
+                  <label className="form-label">Deskripsi Kegiatan</label>
+                  <textarea className="form-control" rows="5" value={editLogbook.deskripsi} onChange={(e) => setEditLogbook({...editLogbook, deskripsi: e.target.value})} required style={{ borderRadius: '12px' }}></textarea>
+                </div>
+              </div>
+              <div className="modal-footer border-0 px-4 pb-4 bg-light">
+                <button type="button" className="btn btn-outline-action" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" className="btn btn-primary px-4"><i className="ph ph-check-circle"></i> Simpan Perubahan</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
