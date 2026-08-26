@@ -190,72 +190,67 @@ function Dashboard({ user }) {
         </div>
 
         {/* Tabel Logbook */}
-        <div id="area-cetak" className="card mt-5 animate-up delay-2">
+        <div className="card mt-5 animate-up delay-2">
           <div className="card-body p-5">
-            <div className="d-flex justify-content-between align-items-start mb-4 gap-5">
-              <div className="pe-3">
-                <div className="judul-template">LOGBOOK MINGGUAN KEGIATAN MSIB BATCH 5</div>
-                <div className="subjudul-template">
-                  <div className="d-flex gap-2">
-                    <span style={{ width: '120px' }}>Nama Mahasiswa</span>
-                    <span>: <strong>{profil.nama || '-'}</strong></span>
-                  </div>
-                  <div className="d-flex gap-2">
-                    <span style={{ width: '120px' }}>Program Studi</span>
-                    <span>: {profil.prodi || '-'}</span>
-                  </div>
-                  <div className="d-flex gap-2">
-                    <span style={{ width: '120px' }}>Perguruan Tinggi</span>
-                    <span>: {profil.universitas || '-'}</span>
-                  </div>
-                  <div className="d-flex gap-2">
-                    <span style={{ width: '120px' }}>Divisi</span>
-                    <span>: {profil.divisi || '-'}</span>
-                  </div>
+            <div id="area-cetak">
+              <div className="d-flex justify-content-between align-items-start mb-4 gap-5">
+                <div className="pe-3">
+                  <div className="judul-template">LOGBOOK MINGGUAN KEGIATAN MSIB BATCH 5</div>
+                  <div className="subjudul-template">PT VINIX SEVEN AURUM</div>
                 </div>
+                <div className="logo-text flex-shrink-0">VINIX<span>7</span></div>
               </div>
-              <div className="flex-shrink-0 text-end">
-                <h1 className="fw-black m-0" style={{ color: 'var(--primary-color)', fontSize: '2.5rem', letterSpacing: '-1px' }}>
-                  VINIX<span className="text-dark">7</span>
-                </h1>
-                <div className="text-muted fw-bold" style={{ letterSpacing: '2px', fontSize: '0.8rem' }}>TECH COMPANY</div>
+
+              <div className="mb-4 text-muted no-print" style={{ fontSize: '0.9rem', background: '#f8fafc', padding: '1rem', borderRadius: '12px', border: '1px dashed var(--border-color)' }}>
+                <strong className="text-dark d-flex align-items-center gap-2"><i className="ph ph-info"></i> Petunjuk Pengisian:</strong>
+                <ul className="mb-0 mt-2 ps-3">
+                  <li>Wajib diisi dengan kegiatan harian, contoh: briefing, apa yang dipelajari, mengerjakan tugas apa saja, dll.</li>
+                  <li>Wajib dikumpulkan setiap minggu bersama dengan pengumpulan tugas.</li>
+                </ul>
               </div>
-            </div>
 
-            <h5 className="fw-bold mb-4 pb-2 border-bottom">Minggu Ke- {profil.minggu_cetak}</h5>
+              <table className="info-profil mb-4">
+                <tbody>
+                  <tr><td width="120">Nama</td><td>: {profil.nama || '-'}</td></tr>
+                  <tr><td>Universitas</td><td>: {profil.universitas || '-'}</td></tr>
+                  <tr><td>Prodi</td><td>: {profil.prodi || '-'}</td></tr>
+                  <tr><td>Divisi</td><td>: {profil.divisi || '-'}</td></tr>
+                  <tr><td>Minggu ke</td><td>: <span className="badge bg-dark rounded-pill px-3">{profil.minggu_cetak}</span></td></tr>
+                </tbody>
+              </table>
 
-            <div className="table-responsive">
-              <table className="table table-modern align-middle" style={{ tableLayout: 'fixed', width: '100%' }}>
+              <table id="tabel-logbook" className="table-modern" style={{ tableLayout: 'fixed', width: '100%' }}>
                 <thead>
                   <tr>
-                    <th style={{ width: '10%' }}>NO.</th>
-                    <th style={{ width: '25%' }}>HARI / TANGGAL</th>
-                    <th style={{ width: '65%' }}>DESKRIPSI KEGIATAN</th>
-                    <th className="aksi-kolom no-print" style={{ width: '120px' }}>AKSI</th>
+                    <th style={{ width: '10%', textAlign: 'center' }}>No</th>
+                    <th style={{ width: '25%' }}>Hari / Tanggal</th>
+                    <th style={{ width: '65%' }}>Deskripsi Kegiatan</th>
+                    <th className="aksi-kolom no-print" style={{ width: '120px' }}>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
                   {logbooks.map((row, index) => (
                     <tr key={row.id}>
-                      <td className="text-center fw-bold" style={{ color: 'var(--primary-color)' }}>{index + 1}.</td>
-                      <td style={{ fontWeight: '600' }}>
-                        {new Date(row.tanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
-                      </td>
-                      <td style={{ lineHeight: '1.6', color: '#334155', whiteSpace: 'pre-wrap' }}>
-                        {row.deskripsi_kegiatan}
-                      </td>
+                      <td style={{ textAlign: 'center', fontWeight: 'bold' }}>{index + 1}</td>
+                      <td>{new Date(row.tanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</td>
+                      <td style={{ whiteSpace: 'pre-wrap' }}>{row.deskripsi_kegiatan}</td>
                       <td className="aksi-kolom no-print">
-                        <button onClick={() => hapusKegiatan(row.id)} className="btn btn-sm btn-danger d-flex align-items-center gap-1 w-100 justify-content-center">
-                          <i className="ph ph-trash"></i> Hapus
-                        </button>
+                        <div className="action-buttons">
+                          <button onClick={() => hapusKegiatan(row.id)} className="btn-icon danger" title="Hapus Data" style={{ border: 'none', background: 'transparent' }}>
+                            <i className="ph ph-trash"></i>
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
                   {logbooks.length === 0 && (
                     <tr>
-                      <td colSpan="4" className="text-center text-muted py-5">
-                        <i className="ph ph-files text-secondary mb-2" style={{ fontSize: '3rem' }}></i>
-                        <br/>Belum ada logbook di minggu ini.
+                      <td colSpan="4" className="p-0 border-0">
+                        <div className="empty-state">
+                          <i className="ph-duotone ph-folder-open"></i>
+                          <h5>Belum Ada Catatan</h5>
+                          <p>Anda belum memasukkan kegiatan apapun di Minggu ke-{profil.minggu_cetak}.</p>
+                        </div>
                       </td>
                     </tr>
                   )}
