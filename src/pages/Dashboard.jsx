@@ -239,14 +239,14 @@ function Dashboard({ user }) {
 
         {/* Tabel Logbook */}
         <div className="card mt-5 animate-up delay-2">
-          <div className="card-body p-5">
+          <div className="card-body p-3 p-md-5">
             <div id="area-cetak">
-              <div className="d-flex justify-content-between align-items-start mb-4 gap-5">
+              <div className="d-flex flex-column flex-md-row justify-content-between align-items-start mb-4 gap-3 gap-md-5">
                 <div className="pe-3">
                   <div className="judul-template">LOGBOOK MINGGUAN KEGIATAN MSIB BATCH 5</div>
                   <div className="subjudul-template">PT VINIX SEVEN AURUM</div>
                 </div>
-                <div className="logo-text flex-shrink-0">VINIX<span>7</span></div>
+                <div className="logo-text flex-shrink-0 text-start text-md-end">VINIX<span>7</span></div>
               </div>
 
               <div className="mb-4 text-muted no-print" style={{ fontSize: '0.9rem', background: '#f8fafc', padding: '1rem', borderRadius: '12px', border: '1px dashed var(--border-color)' }}>
@@ -267,15 +267,16 @@ function Dashboard({ user }) {
                 </tbody>
               </table>
 
-              <table id="tabel-logbook" className="table-modern" style={{ tableLayout: 'fixed', width: '100%' }}>
-                <thead>
-                  <tr>
-                    <th style={{ width: '10%', textAlign: 'center' }}>No</th>
-                    <th style={{ width: '25%' }}>Hari / Tanggal</th>
-                    <th style={{ width: '65%' }}>Deskripsi Kegiatan</th>
-                    <th className="aksi-kolom no-print" style={{ width: '120px' }}>Aksi</th>
-                  </tr>
-                </thead>
+              <div className="table-responsive">
+                <table id="tabel-logbook" className="table-modern" style={{ tableLayout: 'fixed', minWidth: '700px', width: '100%' }}>
+                  <thead>
+                    <tr>
+                      <th style={{ width: '10%', textAlign: 'center' }}>No</th>
+                      <th style={{ width: '25%' }}>Hari / Tanggal</th>
+                      <th style={{ width: '65%' }}>Deskripsi Kegiatan</th>
+                      <th className="aksi-kolom no-print" style={{ width: '120px' }}>Aksi</th>
+                    </tr>
+                  </thead>
                 <tbody>
                   {logbooks.map((row, index) => (
                     <tr key={row.id}>
@@ -307,6 +308,8 @@ function Dashboard({ user }) {
                   )}
                 </tbody>
               </table>
+              </div>
+
             </div>
 
             <div className="d-flex justify-content-end mt-4 no-print">
