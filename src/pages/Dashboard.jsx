@@ -44,6 +44,34 @@ function Dashboard({ user }) {
     }
   }, [user]);
 
+  // Auto Logout setelah 15 menit tidak ada aktivitas
+  useEffect(() => {
+    let timeoutId;
+
+    const resetTimer = () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      // Set timeout selama 15 menit (15 * 60 * 1000 = 900.000 ms)
+      timeoutId = setTimeout(() => {
+        signOut(auth).then(() => {
+          alert('Sesi Anda telah berakhir karena tidak ada aktivitas selama 15 menit. Silakan login kembali.');
+        });
+      }, 15 * 60 * 1000);
+    };
+
+    // Jalankan timer pertama kali
+    resetTimer();
+
+    // Dengarkan aktivitas di layar
+    const events = ['mousemove', 'mousedown', 'keypress', 'touchmove', 'scroll'];
+    events.forEach(event => document.addEventListener(event, resetTimer));
+
+    // Bersihkan listener ketika komponen dihapus dari layar
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      events.forEach(event => document.removeEventListener(event, resetTimer));
+    };
+  }, []);
+
   const handleSimpanProfil = async (e) => {
     e.preventDefault();
     try {
