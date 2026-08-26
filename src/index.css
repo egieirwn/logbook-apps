@@ -369,10 +369,20 @@ body {
     .no-print { display: none !important; }
     #area-cetak {
         box-shadow: none;
-        padding: 0;
-        margin: 0;
+        padding: 0 !important;
+        margin-top: -1.5cm !important; /* Tarik logo & teks ke atas sesuai permintaan */
         border-radius: 0;
     }
+    
+    /* Hilangkan jarak dari Card React yang membungkus area cetak */
+    .card {
+        border: none !important;
+        margin-top: 0 !important;
+    }
+    .card-body {
+        padding: 0 !important;
+    }
+
     .table-modern {
         border-collapse: collapse;
         border-radius: 0;
