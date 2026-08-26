@@ -1,0 +1,392 @@
+/* Google Fonts: Outfit */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --secondary-color: #0ea5e9;
+    --background: #f8fafc;
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border-color: rgba(226, 232, 240, 0.8);
+    --danger: #ef4444;
+    --success: #10b981;
+    --warning: #f59e0b;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--background);
+    background-image: 
+        radial-gradient(at 40% 20%, hsla(250,100%,74%,0.15) 0px, transparent 50%),
+        radial-gradient(at 80% 0%, hsla(189,100%,56%,0.15) 0px, transparent 50%),
+        radial-gradient(at 0% 50%, hsla(355,100%,93%,0.2) 0px, transparent 50%),
+        radial-gradient(at 80% 50%, hsla(340,100%,76%,0.15) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, hsla(22,100%,77%,0.15) 0px, transparent 50%),
+        radial-gradient(at 80% 100%, hsla(242,100%,70%,0.15) 0px, transparent 50%),
+        radial-gradient(at 0% 0%, hsla(343,100%,76%,0.15) 0px, transparent 50%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Glassmorphism Navbar */
+.app-header {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.app-title {
+    font-weight: 800;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.app-title i {
+    color: var(--primary-color);
+    -webkit-text-fill-color: initial;
+}
+
+/* Cards */
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background: transparent;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.25rem 1.5rem;
+}
+
+.card-header h5 {
+    font-weight: 700;
+    color: var(--text-main);
+    font-size: 1.15rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.card-header h5 i {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Form Controls with Icons */
+.form-label {
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+.input-group-custom {
+    position: relative;
+}
+.input-group-custom i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+.form-control {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+.input-group-custom .form-control {
+    padding-left: 2.5rem;
+}
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    background-color: #ffffff;
+}
+.form-control:focus + i, .input-group-custom .form-control:focus ~ i {
+    color: var(--primary-color);
+}
+
+/* Buttons */
+.btn {
+    border-radius: 12px;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    color: white;
+}
+.btn-primary:hover {
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+    transform: translateY(-2px);
+    color: white;
+}
+.btn-dark {
+    background: var(--text-main);
+    border: none;
+}
+.btn-dark:hover {
+    background: #0f172a;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+.btn-outline-action {
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    background: var(--card-bg);
+}
+.btn-outline-action:hover {
+    background: rgba(79, 70, 229, 0.05);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* Highlight Box */
+.highlight-box {
+    background: rgba(79, 70, 229, 0.05);
+    border: 1px dashed var(--primary-color);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+/* Print Area styling for screen */
+#area-cetak {
+    background-color: #ffffff;
+    padding: 3rem;
+    color: #000;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+    margin-top: 1rem;
+}
+.judul-template {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.5px;
+}
+.subjudul-template {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-muted);
+}
+.logo-text {
+    font-weight: 900;
+    font-size: 28px;
+    text-align: right;
+    font-style: italic;
+    color: #1d4ed8;
+    padding-right: 5px; /* Mencegah huruf italic terpotong di ujung kanan */
+}
+.logo-text span {
+    color: #f59e0b;
+}
+.info-profil td {
+    padding: 4px 12px 4px 0;
+    border: none !important;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* Modern Table */
+.table-modern {
+    width: 100%;
+    table-layout: fixed; /* Mencegah tabel melebar melebihi kontainer */
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+.table-modern td {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: normal; /* Membiarkan teks turun secara alami di spasi, bukan memotong tengah kata */
+}
+.table-modern thead th {
+    background-color: rgba(248, 250, 252, 0.8);
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+}
+.table-modern thead th:last-child {
+    border-right: none;
+}
+.table-modern tbody td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    vertical-align: top;
+    font-size: 0.95rem;
+}
+.table-modern tbody td:last-child {
+    border-right: none;
+}
+.table-modern tbody tr:last-child td {
+    border-bottom: none;
+}
+.table-modern tbody tr:hover {
+    background-color: rgba(241, 245, 249, 0.5);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.6rem;
+    justify-content: center;
+}
+.btn-icon {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(79, 70, 229, 0.1); /* Soft Blue/Indigo */
+    border: none;
+    color: var(--primary-color);
+    font-size: 1.15rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+}
+.btn-icon:hover {
+    background: var(--primary-color);
+    color: #ffffff;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 15px rgba(79, 70, 229, 0.3);
+}
+.btn-icon.danger {
+    background: rgba(239, 68, 68, 0.1); /* Soft Red */
+    color: var(--danger);
+}
+.btn-icon.danger:hover {
+    background: var(--danger);
+    color: #ffffff;
+    box-shadow: 0 6px 15px rgba(239, 68, 68, 0.3);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+}
+.empty-state i {
+    font-size: 3.5rem;
+    color: #cbd5e1;
+    margin-bottom: 1rem;
+}
+.empty-state h5 {
+    font-weight: 700;
+    color: var(--text-main);
+}
+.empty-state p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Animations */
+.animate-up {
+    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Print Rules */
+@media print {
+    @page {
+        margin: 2cm 1cm; /* Margin untuk setiap halaman (atas-bawah 2cm, kiri-kanan 1cm) */
+    }
+    body { 
+        background-color: #fff !important; 
+        background-image: none !important; 
+        margin: 0 !important; /* Margin diatur oleh @page, jadi hapus margin body */
+    }
+    .container, .container-fluid {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .no-print { display: none !important; }
+    #area-cetak {
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+        border-radius: 0;
+    }
+    .table-modern {
+        border-collapse: collapse;
+        border-radius: 0;
+        border: 1px solid #000;
+    }
+    .table-modern th, .table-modern td {
+        border: 1px solid #000 !important;
+        padding: 8px;
+    }
+    .table-modern thead {
+        display: table-row-group !important; /* Mencegah judul kolom berulang di setiap halaman */
+    }
+    .table-modern tr {
+        page-break-inside: auto !important; /* Membiarkan baris panjang berlanjut ke halaman berikutnya agar teks tidak terpotong/hilang */
+    }
+    .aksi-kolom { display: none !important; }
+}

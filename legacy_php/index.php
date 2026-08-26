@@ -17,8 +17,8 @@ if (!isset($_SESSION['user_id'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <!-- Custom Premium CSS -->
-    <link rel="stylesheet" href="style.css">
+    <!-- Custom Premium CSS (Cache buster ditambahkan agar CSS baru terbaca) -->
+    <link rel="stylesheet" href="style.css?v=<?= time() ?>">
 </head>
 <body>
 
@@ -135,7 +135,10 @@ if (!isset($_SESSION['user_id'])) {
                 <h4 class="fw-bold m-0 text-dark"><i class="ph-fill ph-printer text-primary"></i> Pratinjau & Unduh Laporan</h4>
                 <p class="text-muted small m-0 mt-1">Selesai mengisi? Unduh logbook minggu ini ke format Word atau Gambar (JPEG).</p>
             </div>
-            <div class="d-flex gap-2">
+            <div class="d-flex gap-2 flex-wrap">
+                <button onclick="window.print()" class="btn btn-danger btn-sm px-3 py-2 d-flex align-items-center shadow-sm" title="Simpan sebagai PDF menggunakan fitur bawaan browser">
+                    <img src="https://img.icons8.com/color/48/000000/pdf.png" alt="PDF" width="24" height="24" class="me-2"> Simpan PDF (Sangat Rapi)
+                </button>
                 <button onclick="exportToWord()" class="btn btn-primary btn-sm px-3 py-2 d-flex align-items-center shadow-sm" title="Download Laporan ke Microsoft Word">
                     <img src="https://img.icons8.com/color/48/000000/word.png" alt="Word" width="24" height="24" class="me-2"> Download Word
                 </button>
@@ -146,12 +149,12 @@ if (!isset($_SESSION['user_id'])) {
         </div>
 
         <div id="area-cetak">
-            <div class="d-flex justify-content-between align-items-start mb-4">
-                <div>
+            <div class="d-flex justify-content-between align-items-start mb-4 gap-5">
+                <div class="pe-3">
                     <div class="judul-template">LOGBOOK MINGGUAN KEGIATAN MSIB BATCH 5</div>
                     <div class="subjudul-template">PT VINIX SEVEN AURUM</div>
                 </div>
-                <div class="logo-text">VINIX<span>7</span></div>
+                <div class="logo-text flex-shrink-0">VINIX<span>7</span></div>
             </div>
 
             <div class="mb-4 text-muted no-print" style="font-size: 0.9rem; background: #f8fafc; padding: 1rem; border-radius: 12px; border: 1px dashed var(--border-color);">
@@ -171,11 +174,11 @@ if (!isset($_SESSION['user_id'])) {
             </table>
 
             <!-- TABEL LOGBOOK -->
-            <table id="tabel-logbook" class="table-modern">
+            <table id="tabel-logbook" class="table-modern" style="table-layout: fixed; width: 100%;">
                 <thead>
                     <tr>
-                        <th style="width: 5%; text-align: center;">No</th>
-                        <th style="width: 22%;">Hari/Tanggal</th>
+                        <th style="width: 10%; text-align: center;">No</th>
+                        <th style="width: 25%;">Hari/Tanggal</th>
                         <th>Deskripsi Kegiatan</th>
                         <th class="aksi-kolom no-print" style="width: 12%; text-align: center;">Aksi</th>
                     </tr>
@@ -188,7 +191,7 @@ if (!isset($_SESSION['user_id'])) {
                                 <td style="font-weight: 600;">
                                     <?= date('j F Y', strtotime($row['tanggal'])) ?>
                                 </td>
-                                <td style="line-height: 1.6; color: #334155;">
+                                <td style="line-height: 1.6; color: #334155; white-space: normal;">
                                     <?= nl2br(htmlspecialchars($row['deskripsi_kegiatan'])) ?>
                                 </td>
                                 <!-- Kolom Aksi -->
@@ -264,6 +267,7 @@ if (!isset($_SESSION['user_id'])) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Script Ekspor -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
     function bukaModalEdit(id, tanggal, deskripsi) {
@@ -294,9 +298,9 @@ if (!isset($_SESSION['user_id'])) {
             link.href = canvas.toDataURL('image/jpeg');
             link.click();
             tampilkanAksi();
-            areaCetak.style.margin = '';
-            areaCetak.style.boxShadow = '';
-            areaCetak.style.borderRadius = '';
+            areaCetak.style.margin = oldMargin;
+            areaCetak.style.boxShadow = oldBoxShadow;
+            areaCetak.style.borderRadius = oldBorderRadius;
         });
     }
 

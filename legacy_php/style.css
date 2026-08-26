@@ -221,6 +221,7 @@ body {
     text-align: right;
     font-style: italic;
     color: #1d4ed8;
+    padding-right: 5px; /* Mencegah huruf italic terpotong di ujung kanan */
 }
 .logo-text span {
     color: #f59e0b;
@@ -235,11 +236,17 @@ body {
 /* Modern Table */
 .table-modern {
     width: 100%;
+    table-layout: fixed; /* Mencegah tabel melebar melebihi kontainer */
     border-collapse: separate;
     border-spacing: 0;
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid var(--border-color);
+}
+.table-modern td {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: normal; /* Membiarkan teks turun secara alami di spasi, bukan memotong tengah kata */
 }
 .table-modern thead th {
     background-color: rgba(248, 250, 252, 0.8);
@@ -250,12 +257,20 @@ body {
     letter-spacing: 0.5px;
     padding: 1rem;
     border-bottom: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+}
+.table-modern thead th:last-child {
+    border-right: none;
 }
 .table-modern tbody td {
     padding: 1rem;
     border-bottom: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
     vertical-align: top;
     font-size: 0.95rem;
+}
+.table-modern tbody td:last-child {
+    border-right: none;
 }
 .table-modern tbody tr:last-child td {
     border-bottom: none;
@@ -337,7 +352,20 @@ body {
 
 /* Print Rules */
 @media print {
-    body { background-color: #fff; background-image: none; margin: 0; }
+    @page {
+        margin: 2cm 1cm; /* Margin untuk setiap halaman (atas-bawah 2cm, kiri-kanan 1cm) */
+    }
+    body { 
+        background-color: #fff !important; 
+        background-image: none !important; 
+        margin: 0 !important; /* Margin diatur oleh @page, jadi hapus margin body */
+    }
+    .container, .container-fluid {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
     .no-print { display: none !important; }
     #area-cetak {
         box-shadow: none;
@@ -351,8 +379,14 @@ body {
         border: 1px solid #000;
     }
     .table-modern th, .table-modern td {
-        border: 1px solid #000;
+        border: 1px solid #000 !important;
         padding: 8px;
+    }
+    .table-modern thead {
+        display: table-row-group !important; /* Mencegah judul kolom berulang di setiap halaman */
+    }
+    .table-modern tr {
+        page-break-inside: auto !important; /* Membiarkan baris panjang berlanjut ke halaman berikutnya agar teks tidak terpotong/hilang */
     }
     .aksi-kolom { display: none !important; }
 }
