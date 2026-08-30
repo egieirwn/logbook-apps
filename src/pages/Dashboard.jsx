@@ -241,7 +241,7 @@ function Dashboard({ user }) {
         <div className="card mt-5 animate-up delay-2">
           <div className="card-body p-3 p-md-5">
             <div id="area-cetak">
-              <div className="d-flex flex-column flex-md-row justify-content-between align-items-start mb-4 gap-3 gap-md-5">
+              <div className="d-flex flex-column flex-md-row print-header justify-content-between align-items-start mb-4 gap-3 gap-md-5">
                 <div className="pe-3">
                   <div className="judul-template">LOGBOOK MINGGUAN KEGIATAN MSIB BATCH 5</div>
                   <div className="subjudul-template">PT VINIX SEVEN AURUM</div>

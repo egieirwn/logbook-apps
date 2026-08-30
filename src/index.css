@@ -375,6 +375,14 @@ body {
         background: transparent !important;
     }
     
+    /* Pastikan header selalu sejajar kiri-kanan walau kertas A4 dihitung < 768px oleh browser */
+    .print-header {
+        flex-direction: row !important;
+    }
+    .logo-text {
+        text-align: right !important;
+    }
+    
     /* Hilangkan sifat Flexbox dari Card React yang merusak Page Break Chrome */
     .card, .card-body {
         display: block !important;
